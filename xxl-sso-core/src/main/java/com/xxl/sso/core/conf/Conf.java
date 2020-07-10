@@ -55,7 +55,9 @@ public class Conf {
     /**
      * login fail result
      */
-    public static final ReturnT<String> SSO_LOGIN_FAIL_RESULT = new ReturnT(501, "sso not login.");
+    public static final ReturnT SSO_LOGIN_FAIL_RESULT = new ReturnT(501, "sso not login.");
 
+    public static final String SPACE = " ";
 
+    public static final String COMMA = ",";
 }

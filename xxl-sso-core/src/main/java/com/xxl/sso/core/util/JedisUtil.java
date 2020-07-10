@@ -29,7 +29,6 @@ public class JedisUtil {
 
 	public static void init(String address) {
 		JedisUtil.address = address;
-
 		getInstance();
 	}
 
@@ -187,15 +186,10 @@ public class JedisUtil {
 	 */
 	public static String setStringValue(String key, String value, int seconds) {
 		String result = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			result = client.setex(key, seconds, value);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return result;
 	}
@@ -209,15 +203,10 @@ public class JedisUtil {
 	 */
 	public static String setObjectValue(String key, Object obj, int seconds) {
 		String result = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			result = client.setex(key.getBytes(), seconds, serialize(obj));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return result;
 	}
@@ -230,15 +219,10 @@ public class JedisUtil {
 	 */
 	public static String getStringValue(String key) {
 		String value = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			value = client.get(key);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return value;
 	}
@@ -251,18 +235,13 @@ public class JedisUtil {
 	 */
 	public static Object getObjectValue(String key) {
 		Object obj = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			byte[] bytes = client.get(key.getBytes());
 			if (bytes != null && bytes.length > 0) {
 				obj = unserialize(bytes);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return obj;
 	}
@@ -277,15 +256,10 @@ public class JedisUtil {
 	 */
 	public static Long del(String key) {
 		Long result = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			result = client.del(key);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return result;
 	}
@@ -299,15 +273,10 @@ public class JedisUtil {
 	 */
 	public static Long incrBy(String key, int i) {
 		Long result = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			result = client.incrBy(key, i);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return result;
 	}
@@ -320,15 +289,10 @@ public class JedisUtil {
 	 */
 	public static boolean exists(String key) {
 		Boolean result = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			result = client.exists(key);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return result;
 	}
@@ -344,15 +308,10 @@ public class JedisUtil {
 	 */
 	public static long expire(String key, int seconds) {
 		Long result = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			result = client.expire(key, seconds);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return result;
 	}
@@ -366,15 +325,10 @@ public class JedisUtil {
 	 */
 	public static long expireAt(String key, long unixTime) {
 		Long result = null;
-		ShardedJedis client = getInstance();
-		try {
+		try (ShardedJedis client = getInstance()) {
 			result = client.expireAt(key, unixTime);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (client != null) {
-				client.close();
-			}
 		}
 		return result;
 	}

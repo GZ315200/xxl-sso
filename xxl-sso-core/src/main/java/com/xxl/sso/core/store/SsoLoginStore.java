@@ -10,8 +10,11 @@ import com.xxl.sso.core.util.JedisUtil;
  * @author xuxueli 2018-04-02 20:03:11
  */
 public class SsoLoginStore {
+    /**
+     * 1440 minute, 24 hour
+     */
+    private static int redisExpireMinute = 1440;
 
-    private static int redisExpireMinute = 1440;    // 1440 minute, 24 hour
     public static void setRedisExpireMinute(int redisExpireMinute) {
         if (redisExpireMinute < 30) {
             redisExpireMinute = 30;
@@ -29,12 +32,10 @@ public class SsoLoginStore {
      * @return
      */
     public static XxlSsoUser get(String storeKey) {
-
         String redisKey = redisKey(storeKey);
         Object objectValue = JedisUtil.getObjectValue(redisKey);
         if (objectValue != null) {
-            XxlSsoUser xxlUser = (XxlSsoUser) objectValue;
-            return xxlUser;
+            return (XxlSsoUser) objectValue;
         }
         return null;
     }
@@ -51,13 +52,13 @@ public class SsoLoginStore {
 
     /**
      * put
-     *
+     * // minute to second
      * @param storeKey
      * @param xxlUser
      */
     public static void put(String storeKey, XxlSsoUser xxlUser) {
         String redisKey = redisKey(storeKey);
-        JedisUtil.setObjectValue(redisKey, xxlUser, redisExpireMinute * 60);  // minute to second
+        JedisUtil.setObjectValue(redisKey, xxlUser, redisExpireMinute * 60);
     }
 
     private static String redisKey(String sessionId){

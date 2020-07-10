@@ -11,7 +11,9 @@ import java.util.Map;
 public class XxlSsoUser implements Serializable {
     private static final long serialVersionUID = 42L;
 
-    // field
+    /**
+     * field
+     */
     private String userid;
     private String username;
     private Map<String, String> plugininfo;

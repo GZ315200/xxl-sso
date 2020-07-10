@@ -5,14 +5,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public abstract class StringUtils {
+/**
+ * @author gygeszean
+ */
+public abstract class AbstractStringUtils {
 
 	/**
 	 *
 	 * @param str
 	 * @return
 	 */
-	public static boolean hasLength(String str) {
+	private static boolean hasLength(String str) {
 		return (str != null && !str.isEmpty());
 	}
 
@@ -22,7 +25,7 @@ public abstract class StringUtils {
 	 * @return
 	 */
 	public static boolean hasText(String str) {
-		return (hasLength(str) && containsText(str));
+		return (!hasLength(str) || !containsText(str));
 	}
 
 	private static boolean containsText(CharSequence str) {
@@ -69,11 +72,11 @@ public abstract class StringUtils {
 	 * @param collection
 	 * @return
 	 */
-	public static String[] toStringArray(Collection<String> collection) {
+	private static String[] toStringArray(Collection<String> collection) {
 		if (collection == null) {
 			return null;
 		}
-		return collection.toArray(new String[collection.size()]);
+		return collection.toArray(new String[0]);
 	}
 
 }
