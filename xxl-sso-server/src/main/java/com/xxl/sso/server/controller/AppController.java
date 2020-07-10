@@ -2,15 +2,16 @@ package com.xxl.sso.server.controller;
 
 import com.xxl.sso.core.login.SsoTokenLoginHelper;
 import com.xxl.sso.core.store.SsoLoginStore;
-import com.xxl.sso.core.user.XxlSsoUser;
 import com.xxl.sso.core.store.SsoSessionIdHelper;
+import com.xxl.sso.core.user.XxlSsoUser;
 import com.xxl.sso.server.core.model.UserInfo;
 import com.xxl.sso.server.core.result.ReturnT;
 import com.xxl.sso.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ import java.util.UUID;
  *
  * @author xuxueli 2018-04-08 21:02:54
  */
-@Controller
+@RestController
 @RequestMapping("/app")
 public class AppController {
 
@@ -34,8 +35,7 @@ public class AppController {
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping("/login")
-	@ResponseBody
+	@PostMapping("/login")
 	public ReturnT<String> login(String username, String password) {
 		// valid login
 		ReturnT<UserInfo> result = userService.findUser(username, password);
@@ -64,8 +64,7 @@ public class AppController {
 	 * @param sessionId
 	 * @return
 	 */
-	@RequestMapping("/logout")
-	@ResponseBody
+	@PostMapping("/logout")
 	public ReturnT<String> logout(String sessionId) {
 		// logout, remove storeKey
 		SsoTokenLoginHelper.logout(sessionId);
@@ -78,10 +77,8 @@ public class AppController {
 	 * @param sessionId
 	 * @return
 	 */
-	@RequestMapping("/logincheck")
-	@ResponseBody
+	@GetMapping("/logincheck")
 	public ReturnT<XxlSsoUser> logincheck(String sessionId) {
-
 		// logout
 		XxlSsoUser xxlUser = SsoTokenLoginHelper.loginCheck(sessionId);
 		if (xxlUser == null) {
