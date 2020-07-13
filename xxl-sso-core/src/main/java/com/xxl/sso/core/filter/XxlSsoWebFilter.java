@@ -21,9 +21,10 @@ import static com.xxl.sso.core.conf.Conf.COMMA;
  * @author xuxueli 2018-04-03
  */
 public class XxlSsoWebFilter extends HttpServlet implements Filter {
+	private static final long serialVersionUID = -1263654995078496655L;
 	private static Logger logger = LoggerFactory.getLogger(XxlSsoWebFilter.class);
 
-	private static final AntPathMatcher antPathMatcher = new AntPathMatcher();
+	private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
 	private String ssoServer;
 	private String logoutPath;
@@ -31,11 +32,9 @@ public class XxlSsoWebFilter extends HttpServlet implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-
 		ssoServer = filterConfig.getInitParameter(Conf.SSO_SERVER);
 		logoutPath = filterConfig.getInitParameter(Conf.SSO_LOGOUT_PATH);
 		excludedPaths = filterConfig.getInitParameter(Conf.SSO_EXCLUDED_PATHS);
-
 		logger.info("XxlSsoWebFilter init.");
 	}
 
@@ -50,7 +49,7 @@ public class XxlSsoWebFilter extends HttpServlet implements Filter {
 			for (String excludedPath : excludedPaths.split(COMMA)) {
 				String uriPattern = excludedPath.trim();
 				// 支持ANT表达式
-				if (antPathMatcher.match(uriPattern, servletPath)) {
+				if (ANT_PATH_MATCHER.match(uriPattern, servletPath)) {
 					// excluded path, allow
 					chain.doFilter(request, response);
 					return;
@@ -72,7 +71,6 @@ public class XxlSsoWebFilter extends HttpServlet implements Filter {
 		XxlSsoUser xxlUser = SsoWebLoginHelper.loginCheck(req, res);
 		// valid login fail
 		if (xxlUser == null) {
-
 			String header = req.getHeader("content-type");
 			boolean isJson = header != null && header.contains("json");
 			if (isJson) {

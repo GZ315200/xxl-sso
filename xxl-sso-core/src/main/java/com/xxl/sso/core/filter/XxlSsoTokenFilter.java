@@ -22,6 +22,7 @@ import static com.xxl.sso.core.conf.Conf.COMMA;
  * @author xuxueli 2018-04-08 21:30:54
  */
 public class XxlSsoTokenFilter extends HttpServlet implements Filter {
+	private static final long serialVersionUID = -8903912485318220955L;
 	private static Logger logger = LoggerFactory.getLogger(XxlSsoTokenFilter.class);
 
 	private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
