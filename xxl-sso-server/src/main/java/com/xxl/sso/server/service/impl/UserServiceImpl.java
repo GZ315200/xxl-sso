@@ -3,6 +3,7 @@ package com.xxl.sso.server.service.impl;
 import com.xxl.sso.server.core.model.UserInfo;
 import com.xxl.sso.server.core.result.ReturnT;
 import com.xxl.sso.server.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,10 +29,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ReturnT<UserInfo> findUser(String username, String password) {
-		if (username == null || username.trim().length() == 0) {
+		if (StringUtils.isBlank(username)) {
 			return ReturnT.fail("Please input username.");
 		}
-		if (password == null || password.trim().length() == 0) {
+		if (StringUtils.isBlank(password)) {
 			return  ReturnT.fail("Please input password.");
 		}
 		// mock user
@@ -42,6 +43,4 @@ public class UserServiceImpl implements UserService {
 		}
 		return ReturnT.fail("username or password is invalid.");
 	}
-
-
 }

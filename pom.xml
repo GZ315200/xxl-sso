@@ -25,14 +25,11 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.test.skip>true</maven.test.skip>
-
         <slf4j-api.version>1.7.30</slf4j-api.version>
-
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <jedis.version>3.2.0</jedis.version>
-
+        <appache.commons.version>3.10</appache.commons.version>
         <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
-
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>

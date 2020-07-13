@@ -78,7 +78,7 @@ public class AppController {
 	 * @return
 	 */
 	@GetMapping("/logincheck")
-	public ReturnT<XxlSsoUser> logincheck(String sessionId) {
+	public ReturnT<XxlSsoUser> loginCheck(String sessionId) {
 		// logout
 		XxlSsoUser xxlUser = SsoTokenLoginHelper.loginCheck(sessionId);
 		if (xxlUser == null) {
